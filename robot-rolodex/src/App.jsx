@@ -1,15 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-
-const Card = ({ name, email, id }) => {
-  return (
-    <div>
-      <img src={`https://robohash.org/${id}`} />
-      <h3>{name}</h3>
-      <p>{email}</p>
-    </div>
-  );
-};
+import CardList from "./components/card-list/card-list.component";
 
 const App = () => {
   const [robo, setRobo] = useState([]);
@@ -22,11 +13,7 @@ const App = () => {
 
   return (
     <>
-      {robo.map(({ name, email, id }, idx) => {
-        return (
-          <Card key={`${name}-${idx}`} name={name} email={email} id={id}></Card>
-        );
-      })}
+      <CardList robo={robo} />
     </>
   );
 };
