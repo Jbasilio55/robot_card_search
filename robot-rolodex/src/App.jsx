@@ -1,19 +1,33 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import CardList from "./components/card-list/card-list.component";
+import SearchBox from "./components/search-box/search-box.component";
 
 const App = () => {
   const [robo, setRobo] = useState([]);
+  const [filteredRobo, setFilteredRobo] = useState([]);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
-      .then((data) => setRobo(data));
+      .then((data) => {
+        setRobo(data);
+        setFilteredRobo(data);
+      });
   }, []);
+
+  const onSearchHandler = (event) => {
+    const searchString = event.target.value.toLowerCase();
+    const newFilteredRobos = robo.filter((robo) =>
+      robo.name.toLowerCase().includes(searchString)
+    );
+    setFilteredRobo(newFilteredRobos);
+  };
 
   return (
     <>
-      <CardList robo={robo} />
+      <SearchBox onChangeHandler={onSearchHandler} />
+      <CardList robo={filteredRobo} />
     </>
   );
 };
