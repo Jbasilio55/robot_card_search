@@ -25,10 +25,11 @@ const App = () => {
   };
 
   return (
-    <>
+    <div className="app-container">
+      <h1 className="app-title">Robo Rolodex</h1>
       <SearchBox onChangeHandler={onSearchHandler} />
       <CardList robo={filteredRobo} />
-    </>
+    </div>
   );
 };
 
